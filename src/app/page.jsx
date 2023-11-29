@@ -1,5 +1,5 @@
-import  Logo  from "public/assessts/Logo.png"
-import  RocketLaunch  from "public/assessts/RocketLaunch.png"
+import Logo from "public/assessts/Logo.png"
+import RocketLaunch from "public/assessts/RocketLaunch.png"
 import Visuals from "public/assessts/Visuals.png"
 
 export default function Home() {
@@ -21,15 +21,21 @@ export default function Home() {
           <p className="font-poppins font-extrabold text-6xl leading-snug">Lorem Ipsum Sit amet Condor</p>
           <p className="text-lg leading-snug">Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor</p>
           <div className="flex gap-4">
-          <button className="flex items-center gap-5 bg-[#009379] text-white rounded-2xl text-sm px-7 py-3">
+            <button className="flex items-center gap-5 bg-[#009379] text-white rounded-2xl text-sm px-7 py-3">
               <img src={RocketLaunch}></img> Get started</button>
-          <button className="border-[#009379] border-2 rounded-2xl text-[#009379] font-bold text-sm px-7 py-3">How it Works</button>
-           </div>
+            <button className="border-[#009379] border-2 rounded-2xl text-[#009379] font-bold text-sm px-7 py-3">How it Works</button>
+          </div>
         </div>
         <div className="flex flex-1 justify-center items-center">
-        <img className="h-full w-full" src={Visuals}></img>
+          <img className="h-full w-full" src={Visuals}></img>
         </div>
-
+      </div>
+      {/* Features */}
+      <div>
+        <div className="flex flex-col justify-center items-center gap-5 py-28 px-14">
+          <h1 className="font-poppins font-extrabold text-3xl">Features</h1>
+          <p className="font-poppins text-lg">These are just a few features you’ll get using Anima Landing Page Ui Kit.</p>
+        </div>
       </div>
     </main>
   )
