@@ -1,11 +1,16 @@
 'use client'
 import React, { useState } from 'react';
+import { FaInstagram } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import {FaPhone} from "react-icons/fa"
+import { IoMdMail } from "react-icons/io";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: '',
+
   });
 
   const handleChange = (e) => {
@@ -18,69 +23,72 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can handle the form submission logic here
+
     console.log('Form submitted:', formData);
-    // Reset the form fields after submission
+
     setFormData({
       name: '',
       email: '',
-      message: '',
+
     });
   };
 
   return (
-    <div>
-      <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-sm font-semibold text-gray-600">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
+    <div className='flex justify-center'>
+      <div className='flex flex-col flex-1 items-center gap-12'>
+        <div className='flex flex-col gap-4'>
+        <div className='flex items-center gap-2'>
+        <FaPhone/><p>+279 334 223 1</p></div>
+        <div className='flex items-center gap-2'>
+        <IoMdMail/><p>Jacob@fiverr.com</p></div>
         </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-semibold text-gray-600">
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            required
-          />
+        <div className='flex flex-col gap-5'>
+        <h1 className='mt-32 font-bold font-poppins text-xl'>Contact Us Here</h1>
+        <div className="flex justify-center items-center gap-8">
+							<FaInstagram className="text-2xl cursor-pointer " />
+							<FaTwitter className="text-2xl cursor-pointe" />
+							<FaLinkedin className="text-2xl cursor-pointer " />
+							
+						</div>
+       </div>
+
+      </div>
+      <div className='flex-1'>
+        <div className="flex">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-7 py-3 border rounded-2xl focus:outline-none focus:border-green-500 font-poppins"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+            <div className="">
+              <br></br>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-7 py-3 border rounded-2xl focus:outline-none focus:border-green-500 font-poppins"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <br></br>
+            <button
+              type='submit'
+              className="bg-[#009379] text-white rounded-2xl px-10 py-3 text-center">
+              Submit</button>
+          </form>
         </div>
-        <div className="mb-4">
-          <label htmlFor="message" className="block text-sm font-semibold text-gray-600">
-            Message:
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            rows="4"
-            required
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Submit
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -6,12 +6,13 @@ import Icon1 from "public/assessts/Icon1.png"
 import Icon2 from "public/assessts/Icon2.png"
 import ArrowRight from "public/assessts/ArrowRight.png"
 import Blogpost from "public/components/Blogpost.jsx"
-import {Blogg} from "public/components/Blog.jsx"
+import { Blogg } from "public/components/Blog.jsx"
 import Contact from "public/components/Contact.jsx"
+import Footer from "public/components/Footer.jsx"
 
 export default function Home() {
   return (
-    <main className="px-12 py-5">
+    <main className="px-4 py-5 sm:px-12">
       {/* Header */}
       <div className="flex justify-between items-center ">
         <img className="logo" src={Logo} ></img>
@@ -72,7 +73,7 @@ export default function Home() {
           <p className="font-poppins text-lg text-center">Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor</p>
         </div>
 
-        <div className="flex gap-2 justify-between ">
+        <div className="flex justify-center items-center gap-12">
           <div className="flex flex-col justify-center items-center bg-[#FFFFFF] px-14 py-8 gap-2 rounded-tl-3xl rounded-tr-lg  border-b-4 border-green-800 shadow-md">
             <h1 className="text-3xl text-center font-popppins font-extrabold">10k+</h1>
             <p className="text-lg font-Mulish font-normal text-center">Lorem Ispum</p>
@@ -98,7 +99,7 @@ export default function Home() {
           <p className="font-poppins text-lg text-center">Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor</p>
         </div>
         {/* prics */}
-        <div className="flex justify-center items-center  min-h-screen bg-gray-100">
+        <div className="flex justify-evenly items-center  bg-gray-100">
           {/* Pricing Card 1 */}
           <div className="max-w-sm w-full bg-white shadow-lg rounded-lg overflow-hidden m-4">
             <div className="bg-[#F8D57E33] text-[#b48611df] p-6">
@@ -159,20 +160,28 @@ export default function Home() {
       </div>
       {/* Blog */}
       <div>
-      <div className="flex flex-col justify-center items-center gap-10">
+        <div className="flex flex-col justify-center items-center gap-10">
           <h1 className="font-poppins font-extrabold text-3xl text-center">Blogs</h1>
           <p className="font-poppins text-lg text-center">Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor</p>
         </div>
         <div className="flex justify-between py-28 gap-4">
-      {Blogg.map((a)=>(
-          <Blogpost data={a}/>
-          
-        ))}</div>
-     
+          {Blogg.map((a) => (
+            <Blogpost data={a} />
+
+          ))}</div>
+
       </div>
       {/* Contact */}
-      <div>
-        <Contact/>
+      <div className="bg-[#FFFFFF] rounded-md">
+      <div className="flex flex-col justify-center items-center gap-10 py-14">
+          <h1 className="font-poppins font-extrabold text-3xl text-center">Blogs</h1>
+          <p className="font-poppins text-lg text-center">Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor</p>
+        </div>
+        <Contact />
+      </div>
+      {/* Footer */}
+      <div className="mt-16">
+        <Footer/>
       </div>
 
     </main>
