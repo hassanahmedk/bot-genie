@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
-import {FaPhone} from "react-icons/fa"
+import { FaPhone } from "react-icons/fa"
 import { IoMdMail } from "react-icons/io";
 
 const Contact = () => {
@@ -37,20 +37,20 @@ const Contact = () => {
     <div className='flex justify-center'>
       <div className='flex flex-col flex-1 items-center gap-12'>
         <div className='flex flex-col gap-4'>
-        <div className='flex items-center gap-2'>
-        <FaPhone/><p>+279 334 223 1</p></div>
-        <div className='flex items-center gap-2'>
-        <IoMdMail/><p>Jacob@fiverr.com</p></div>
+          <div className='flex items-center gap-2'>
+            <FaPhone /><p>+279 334 223 1</p></div>
+          <div className='flex items-center gap-2'>
+            <IoMdMail /><p>Jacob@fiverr.com</p></div>
         </div>
         <div className='flex flex-col gap-5'>
-        <h1 className='mt-32 font-bold font-poppins text-xl'>Contact Us Here</h1>
-        <div className="flex justify-center items-center gap-8">
-							<FaInstagram className="text-2xl cursor-pointer " />
-							<FaTwitter className="text-2xl cursor-pointe" />
-							<FaLinkedin className="text-2xl cursor-pointer " />
-							
-						</div>
-       </div>
+          <h1 className='mt-32 font-bold font-poppins text-xl'>Contact Us Here</h1>
+          <div className="flex justify-center items-center gap-8">
+            <FaInstagram className="text-2xl cursor-pointer " />
+            <FaTwitter className="text-2xl cursor-pointe" />
+            <FaLinkedin className="text-2xl cursor-pointer " />
+
+          </div>
+        </div>
 
       </div>
       <div className='flex-1'>

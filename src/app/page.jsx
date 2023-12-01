@@ -173,7 +173,7 @@ export default function Home() {
       </div>
       {/* Contact */}
       <div className="bg-[#FFFFFF] rounded-md">
-      <div className="flex flex-col justify-center items-center gap-10 py-14">
+      <div className="flex flex-col gap-10 py-14">
           <h1 className="font-poppins font-extrabold text-3xl text-center">Blogs</h1>
           <p className="font-poppins text-lg text-center">Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor Lorem Ipsum Sit amet Condor</p>
         </div>
