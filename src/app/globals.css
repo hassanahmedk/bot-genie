@@ -6,3 +6,10 @@
 body{
   background-color: #F8F9FF;
 }
+
+
+@layer components {
+  .flexCenter{
+    @apply flex items-center justify-center;
+  }
+}
