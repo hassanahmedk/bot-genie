@@ -6,7 +6,7 @@ import NavigationTab from './InnerComponents/NavigationTab'
 function Navigation() {
   const [activeTab, setActiveTab] = useState<string>('dashboard')
   return (
-    <div id="dashboard-navigation" className='w-80 h-full bg-[#F1F2F7] shadow-sm'>
+    <div id="dashboard-navigation" className='w-80 h-full bg-[#F1F2F7] shadow-md'>
       <div className="p-8 border-b border-b-gray-300">
         <Logo />
       </div>
