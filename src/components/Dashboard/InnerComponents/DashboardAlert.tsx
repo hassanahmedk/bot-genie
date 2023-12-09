@@ -34,7 +34,7 @@ function DashboardAlert({
 
         <div className="opacity-75 text-sm flex justify-between w-full">
           <div className="flex gap-2">
-            <Image src={`/images/icons/${icon}`} width={20} height={20} alt="alert-icon" />
+            <Image src={`/images/${icon}`} width={20} height={20} alt="alert-icon" />
             <div className="font-bold">
               {currency} - 
             </div>
