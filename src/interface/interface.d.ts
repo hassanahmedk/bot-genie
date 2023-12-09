@@ -17,3 +17,8 @@ export interface ButtonProps {
   // Add other button-related props as needed
 }
 
+export interface NavigationTabProps {
+  title: string, 
+  icon: string,
+  tabActive?: boolean
+}

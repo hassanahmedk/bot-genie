@@ -1,21 +1,31 @@
 "use client";
-import {useState} from "react";
+import { useState } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 
 function LoginForm() {
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
 
-  const [loginData, setLoginData] = useState({email:"", password:""});
-
-
-  const onChange = (event:{target:{name:string, value:string}}) => {
-    setLoginData({...loginData, [event.target.name]:event.target.value});
+  const onChange = (event: { target: { name: string; value: string } }) => {
+    setLoginData({ ...loginData, [event.target.name]: event.target.value });
   };
 
-
-  const onSubmit = () => {
-    console.log(loginData)
-  }
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+      const data = await response.json();
+      alert(data.message);
+      console.log(data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flexCenter flex-col text-center gap-12">
@@ -24,13 +34,25 @@ function LoginForm() {
         <h3 className="text-md">Login into your account</h3>
       </div>
       <div id="login-form" className="flexCenter flex-col gap-4">
-        <Input placeholder="Email" type="email" name="email" value={loginData.email} onChange={onChange} />
-        <Input placeholder="Password" type="password" name="password" value={loginData.password} onChange={onChange} />
+        <Input
+          placeholder="Email"
+          type="username"
+          name="username"
+          value={loginData.username}
+          onChange={onChange}
+        />
+        <Input
+          placeholder="Password"
+          type="password"
+          name="password"
+          value={loginData.password}
+          onChange={onChange}
+        />
         <Button
           title="Login"
           type="primary"
           size="lg"
-          onClick={onSubmit}
+          onClick={handleSubmit}
           className="mt-4"
         />
       </div>
