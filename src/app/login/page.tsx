@@ -30,7 +30,7 @@ function page() {
           className="w-full h-full relative "
         >
           <Image
-            src={"/images/auth/login-bg.png"}
+            src={"/images/login-bg.png"}
             alt="login-pic"
             layout="fill"
             objectFit="cover"

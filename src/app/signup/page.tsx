@@ -9,7 +9,7 @@ function page() {
       <div id="signup-left" className="w-full h-full overflow-hidden">
         <div className="w-full h-full relative ">
           <Image
-            src={"/images/auth/signup-bg.jpg"}
+            src={"/images/signup-bg.jpg"}
             alt="signup-pic"
             layout="fill"
             objectFit="cover"
