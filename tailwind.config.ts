@@ -32,6 +32,13 @@ const config: Config = {
           900: '#005849',
         },
       },
+
+      boxShadow: {
+        'sm': 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px',
+        'md': 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
+        // Customize the 'sm' (small) shadow value as needed
+      },
+
       utilities: {
         flexCenter: {
           display: 'flex',

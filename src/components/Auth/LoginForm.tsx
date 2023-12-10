@@ -1,9 +1,12 @@
 "use client";
+import { useRouter } from 'next/navigation'
 import { useState } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 
+
 function LoginForm() {
+  const router = useRouter()
   const [loginData, setLoginData] = useState({ username: "", password: "" });
 
   const onChange = (event: { target: { name: string; value: string } }) => {
@@ -11,20 +14,21 @@ function LoginForm() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginData),
-      });
-      const data = await response.json();
-      alert(data.message);
-      console.log(data)
-    } catch (error) {
-      console.error(error);
-    }
+    router.push('/dashboard')
+    // try {
+    //   const response = await fetch("/api/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(loginData),
+    //   });
+    //   const data = await response.json();
+    //   alert(data.message);
+    //   console.log(data)
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (

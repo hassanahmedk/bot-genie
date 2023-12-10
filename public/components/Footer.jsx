@@ -3,16 +3,16 @@ import { FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-
+import Logo from "@/components/shared/Logo";
 
 function Footer() {
 	return (
 		<>
-			<div className="bg-gray-50 h-1/2 w-full flex justify-between items-start p-20">
+			<div className="h-1/2 w-full flex justify-between items-start p-20 mt-12 bg-black text-white">
 				<div className="p-5 ">
 					<ul>
 						<p className="text-gray-800 font-bold text-3xl pb-6">
-							Bot<span className="text-blue-600">Genie</span>
+							<Logo />
 						</p>
 						<div className="flex gap-6 pb-5">
 							<FaInstagram className="text-2xl cursor-pointer hover:text-yellow-600" />

@@ -29,6 +29,10 @@ function DashboardLogs() {
       title: "lorem ipsum sit amet lorem",
       time: "5:04 PM - 12 Dec 2023",
     },
+    {
+      title: "lorem ipsum sit amet lorem",
+      time: "5:04 PM - 12 Dec 2023",
+    },
   ]);
 
   return (
