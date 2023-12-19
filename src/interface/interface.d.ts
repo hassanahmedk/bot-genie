@@ -20,5 +20,6 @@ export interface ButtonProps {
 export interface NavigationTabProps {
   title: string, 
   icon: string,
-  tabActive?: boolean
+  tabActive?: boolean,
+  onClick: (string) => void
 }

@@ -4,7 +4,7 @@ import { NavigationTabProps } from '@/interface/interface'
 import Image from 'next/image';
 
 const NavigationTab: React.FC<NavigationTabProps> = ({
-  title, icon, tabActive = false, 
+  title, icon, tabActive = false, onClick
 }) => {
 
   const [active, setActive] = useState<boolean>(false);
@@ -17,7 +17,9 @@ const NavigationTab: React.FC<NavigationTabProps> = ({
     <div className={
       `p-4 rounded text-sm font-semibold flex gap-4 cursor-pointer
       ${tabActive ? 'bg-[#D9E9EB] text-primary-500 opacity-100' : 'text-[#273240] opacity-60'}
-      `}>
+      `}
+      onClick={onClick}
+      >
         <Image src={`/images/dashboard-${tabActive ? 'active' : 'inactive'}.svg`} height={20} width={20} alt="navigation-icon" />
       {title}
     </div>
