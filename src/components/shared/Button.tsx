@@ -20,8 +20,8 @@ const Button: React.FC<ButtonProps> = ({
         ${type==="primary" && 'bg-primary-500 hover:bg-primary-700 focus:bg-primary-800 text-white'}
         ${type==="secondary" && 'bg-white text-primary-500'}
         ${size==="lg" && 'w-64 py-3 text-lg'}
-        ${size==="md" && 'w-64'}
-        ${size==="sm" && 'w-64'}
+        ${size==="md" && 'w-48'}
+        ${size==="sm" && 'w-28'}
         `}
     >
       {title}
