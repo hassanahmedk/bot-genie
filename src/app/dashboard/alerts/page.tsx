@@ -7,6 +7,21 @@ import Button from '@/components/shared/Button'
 
 function Page() {
   const [addAlertOpen, setAddAlertOpen] = useState<boolean>(false);
+
+  const alertStats = [
+    {
+      title:'Total Alerts', value: 240, bg:'#FFEFE7', color:'#FF5500'
+    },
+    {
+      title:'Active Alerts', value: 10, bg:'#E8F0FB', color:'#4493FF'
+    },
+    {
+      title:'Today Alerts', value: 32, bg:'#FDEBF9', color:'#FF67DD'
+    },
+    {
+      title:'Inactive Alerts', value: 4, bg:'#F2F0BB', color:'#BEAB00'
+    }
+  ]  
   
   const handleAddAlert = () => {
     setAddAlertOpen(true);
@@ -14,7 +29,7 @@ function Page() {
   
   return (
     <div className='flex flex-col gap-4'>
-      <DashboardStats />
+      <DashboardStats stats={alertStats} />
       <Button title='Add Alert' onClick={handleAddAlert} type='primary' className='self-end' />
       <DashboardTable />
       { addAlertOpen &&

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 
-function SignupForm() {
+function SignupForm(props:any) {
   const [signupData, setSignupData] = useState({
     name: "",
     name2: "",
@@ -17,6 +17,7 @@ function SignupForm() {
   };
 
   const onSubmit = () => {
+    props.setEmail(signupData.email);
     console.log(signupData);
   };
 
@@ -37,15 +38,15 @@ function SignupForm() {
           onChange={onChange}
         />
         <Input
-          placeholder="Full Name"
-          name={"name2"}
-          value={signupData.name2}
-          type="name"
+          placeholder="Email"
+          name={"email"}
+          value={signupData.email}
+          type="email"
           onChange={onChange}
         />
         <Input
-          placeholder="Email"
-          name={"email"}
+          placeholder="Referral Code"
+          name={"from_referral"}
           value={signupData.email}
           type="email"
           onChange={onChange}
@@ -64,7 +65,6 @@ function SignupForm() {
           value={signupData.confirmPassword}
           onChange={onChange}
         />
-
         <Button
           title="Signup"
           type="primary"

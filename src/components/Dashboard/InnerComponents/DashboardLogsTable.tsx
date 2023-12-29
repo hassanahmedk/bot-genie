@@ -12,7 +12,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button, Menu, MenuItem } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ConditionIcon from "@/components/shared/ConditionIcon";
+import Image from "next/image";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -55,9 +55,9 @@ function createData(
 //   createData('Gingerbread', 356, 16.0, 49, 3.9),
 // ];
 
-const rows = [{}, {}, {}, {}, {}];
+const rows = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 
-export default function DashboardTable() {
+export default function DashboardLogsTable() {
   const triggerOptions = (a, b) => {};
 
   const [anchorElArray, setAnchorElArray] = React.useState<
@@ -86,22 +86,22 @@ export default function DashboardTable() {
           <TableRow>
             <StyledTableCell>#</StyledTableCell>
             <StyledTableCell align="left">
-              <h2 className="text-md font-semibold">ALERT NAME</h2>
+              <h2 className="text-md font-semibold">TIME</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
-              <h2 className="text-md font-semibold">CONDITION</h2>
+              <h2 className="text-md font-semibold">FROM ALERT</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
-              <h2 className="text-md font-semibold">PRICE</h2>
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              <h2 className="text-md font-semibold">INDICATOR</h2>
+              <h2 className="text-md font-semibold">MESSAGE</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
               <h2 className="text-md font-semibold">SYMBOL</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
-              <h2 className="text-md font-semibold">TRIGGER</h2>
+              <h2 className="text-md font-semibold">EMAILED</h2>
+            </StyledTableCell>
+            <StyledTableCell align="left">
+              <h2 className="text-md font-semibold">WEBHOOK</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
               <h2 className="text-md font-semibold">ACTIONS</h2>
@@ -115,30 +115,30 @@ export default function DashboardTable() {
                 {index}
               </StyledTableCell>
               <StyledTableCell align="left">
-                <div className=" text-lg">{"Alert No 45"}</div>
-              </StyledTableCell>
-
-              <StyledTableCell align="left">
-                <div className="flex items-center gap-2">
-                  <ConditionIcon condition="crossing" />
-                  <div className="">{"Crossing"}</div>
+                <div className=" text-sm italic">
+                  <div className="font-semibold">
+                    {"23-12-2024"}
+                  </div>
+                  <div>
+                    {"8:42 PM"}
+                  </div>
                 </div>
               </StyledTableCell>
 
-              <StyledTableCell align="left">{"$112.00"}</StyledTableCell>
-
-              <StyledTableCell align="left">{"3Crows"}</StyledTableCell>
-
               <StyledTableCell align="left">
-                <div className="font-semibold text-md">{"BTC"}</div>
-                <br />
-                {"Binance"}
+                <div className="">{"Alert No 45"}</div>
               </StyledTableCell>
 
+              <StyledTableCell align="left">{"Lorem Ipsum Sit Amet si at $112.00. Lorem Ipsum Sit Amet Si Muto Lorem"}</StyledTableCell>
+
+              <StyledTableCell align="left">{"BTC"}</StyledTableCell>
+
               <StyledTableCell align="left">
-                <div className="font-semibold text-md">{"Only Once"}</div>
-                <br />
-                Expires on {"26 June 2024"}
+                <Image src={'/images/icons/check.svg'} alt="check-icon" width={30} height={30} />
+              </StyledTableCell>
+
+              <StyledTableCell align="center">
+                <Image src={'/images/icons/check.svg'} alt="check-icon" width={30} height={30} />
               </StyledTableCell>
 
               <StyledTableCell align="left" key={index}>
@@ -184,6 +184,7 @@ export default function DashboardTable() {
             </StyledTableRow>
           ))}
         </TableBody>
+       
       </Table>
     </TableContainer>
   );
