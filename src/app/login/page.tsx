@@ -1,9 +1,19 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import LoginForm from "@/components/Auth/LoginForm";
 import Logo from "@/components/shared/Logo";
+import { setIsAuthenticated } from "@/utils";
+import { useRouter } from "next/navigation";
 
-function page() {
+function Page() {
+  const router = useRouter();
+  const handleLoggedIn = (token:string) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('isAuthenticated', 'true');
+    router.push("/dashboard");
+  }
+
   return (
     <div className="flex h-screen w-screen bg-white">
       <div 
@@ -21,7 +31,7 @@ function page() {
           </div>
         </div>
         <div className="my-36">
-          <LoginForm />
+          <LoginForm handleLoggedIn={handleLoggedIn} />
         </div>
       </div>
 
@@ -41,4 +51,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

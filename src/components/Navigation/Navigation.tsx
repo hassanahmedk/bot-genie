@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import Logo from '../shared/Logo'
 import NavigationTab from './InnerComponents/NavigationTab'
 import MyContext from '@/context/appContext';
-import { usePathname, useRouter } from 'next/navigation';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 
 function Navigation() {
   const { currentScreen, setCurrentScreen } = useContext(MyContext);
@@ -13,6 +13,12 @@ function Navigation() {
   useEffect(()=>{
     console.log('path' + pathname)
   })
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("token");
+    redirect("/login");
+  }
 
   return (
     <div id="dashboard-navigation" className='w-80 h-full bg-[#F1F2F7] border border-gray-300'>
@@ -33,7 +39,7 @@ function Navigation() {
           <h2 className='text-gray-500 my-2 text-xs font-semibold uppercase'>Others</h2>
           <NavigationTab onClick={()=>{setCurrentScreen("SETTINGS"); router.push('/dashboard/settings')}} title='Settings' icon='settings-icon' tabActive={pathname === '/dashboard/settings'} />
           <NavigationTab onClick={()=>{setCurrentScreen("SUBSCRIPTION"); router.push('/dashboard/subscriptions')}} title='Subscription' icon='subscription-icon' tabActive={pathname === '/dashboard/subscriptions'} />
-          <NavigationTab onClick={()=>{}} title='Signout' icon='signout-icon' tabActive={currentScreen === 'SIGNOUT'} />
+          <NavigationTab onClick={()=>handleLogout} title='Signout' icon='signout-icon' tabActive={currentScreen === 'SIGNOUT'} />
         </div>
       </div>
 

@@ -2,23 +2,83 @@
 import { useState } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
+import { ERROR_REASONS, emailRegex } from "@/utils";
 
 function SignupForm(props:any) {
   const [signupData, setSignupData] = useState({
     name: "",
-    name2: "",
     email: "",
     password: "",
+    fromReferral:"",
     confirmPassword: "",
   });
+
+  const [signupError, setSignupError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onChange = (event: { target: { name: string; value: string } }) => {
     setSignupData({ ...signupData, [event.target.name]: event.target.value });
   };
 
-  const onSubmit = () => {
+  const createAccount = async () => {
+    try {
+      const response = await fetch('/api/signup/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupData),
+      });
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+
+  const onSubmit = async () => {
+    setLoading(true);
     props.setEmail(signupData.email);
-    console.log(signupData);
+    setSignupError("");
+    
+    let emptyValues = Object.values(signupData).some((value) => value=="");
+    let emailValid = signupData.email.toLowerCase().match(emailRegex);
+    
+    if(emptyValues){
+      setSignupError("* Please fill in all the fields.");
+      setLoading(false);
+      return;
+    }
+
+    if(!emailValid){
+      setSignupError("* Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
+    try{
+      const response:any = await createAccount();
+      console.log(response);
+      if(response?.error && response?.reason && response?.reason === ERROR_REASONS.emailExists){
+        setSignupError("* Email already exists. Please try a different email address");
+        setLoading(false);
+        return;
+      } else if(response?.error){
+        setSignupError("* Something went wrong. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      if(response?.success){
+        props.handleAccountCreated();
+        setLoading(false);
+      }
+    } catch(e) {
+      console.log(e);
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,9 +106,9 @@ function SignupForm(props:any) {
         />
         <Input
           placeholder="Referral Code"
-          name={"from_referral"}
-          value={signupData.email}
-          type="email"
+          name={"fromReferral"}
+          value={signupData.fromReferral}
+          type="referral"
           onChange={onChange}
         />
         <Input
@@ -65,10 +125,12 @@ function SignupForm(props:any) {
           value={signupData.confirmPassword}
           onChange={onChange}
         />
+        <p className="mt-2 text-red-600 self-start">{signupError}</p>
         <Button
           title="Signup"
           type="primary"
           size="lg"
+          disabled={loading}
           onClick={onSubmit}
           className="mt-4"
         />

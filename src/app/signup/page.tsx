@@ -4,10 +4,14 @@ import Image from "next/image";
 import SignupForm from "@/components/Auth/SignupForm";
 import Logo from "@/components/shared/Logo";
 import EmailSent from "@/components/Auth/EmailSent";
-import EmailVerified from "@/components/Auth/EmailVerified";
 
 function Page() {
   const [email, setEmail] = useState<string>('');
+  const [emailSent, setEmailSent] = useState<boolean>(false);
+
+  const handleAccountCreated = () => {
+    setEmailSent(true);
+  }
 
   return (
     <div className="flex h-screen w-screen bg-white">
@@ -42,9 +46,15 @@ function Page() {
           </div>
         </div>
         <div className="my-16">
-          <SignupForm setEmail={setEmail} />
-          <EmailSent />
-          <EmailVerified />
+          {
+            emailSent
+            ? <EmailSent email={email} />
+            : <SignupForm 
+              setEmail={setEmail} 
+              setEmailSent={setEmailSent} 
+              handleAccountCreated={handleAccountCreated}
+            /> 
+          }
         </div>
       </div>
     </div>

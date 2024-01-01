@@ -1,10 +1,16 @@
+'use client'
 import DashboardAlerts from "@/components/Dashboard/DashboardAlerts";
 import DashboardLogs from "@/components/Dashboard/DashboardLogs";
 import DashboardStats from "@/components/Dashboard/DashboardStats";
 import DashboardSubscription from "@/components/Dashboard/DashboardSubscription";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
-function page() {
+function Page() {
+
+  useLayoutEffect(()=>{
+    
+  })
+
   const alertStats = [
     {
       title:'Total Alerts', value: 240, bg:'#FFEFE7', color:'#FF5500'
@@ -32,4 +38,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
