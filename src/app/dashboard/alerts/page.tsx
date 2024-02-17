@@ -6,7 +6,7 @@ import DashboardTable from '@/components/Dashboard/InnerComponents/DashboardTabl
 import Button from '@/components/shared/Button'
 
 function Page() {
-  const [addAlertOpen, setAddAlertOpen] = useState<boolean>(false);
+  const [addAlertOpen, setAddAlertOpen] = useState<boolean>(true);
 
   const alertStats = [
     {

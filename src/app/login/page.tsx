@@ -1,10 +1,10 @@
 "use client"
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import Image from "next/image";
 import LoginForm from "@/components/Auth/LoginForm";
 import Logo from "@/components/shared/Logo";
-import { setIsAuthenticated } from "@/utils";
 import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 function Page() {
   const router = useRouter();
@@ -13,6 +13,13 @@ function Page() {
     localStorage.setItem('isAuthenticated', 'true');
     router.push("/dashboard");
   }
+
+  useLayoutEffect(() => {
+    const isAuth = localStorage.getItem('isAuthenticated');
+    if(isAuth){
+      redirect("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="flex h-screen w-screen bg-white">

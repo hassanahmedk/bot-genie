@@ -1,9 +1,10 @@
 'use client'
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import SignupForm from "@/components/Auth/SignupForm";
 import Logo from "@/components/shared/Logo";
 import EmailSent from "@/components/Auth/EmailSent";
+import { redirect } from "next/navigation";
 
 function Page() {
   const [email, setEmail] = useState<string>('');
@@ -12,6 +13,13 @@ function Page() {
   const handleAccountCreated = () => {
     setEmailSent(true);
   }
+
+  useLayoutEffect(() => {
+    const isAuth = localStorage.getItem('isAuthenticated');
+    if(isAuth){
+      redirect("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="flex h-screen w-screen bg-white">

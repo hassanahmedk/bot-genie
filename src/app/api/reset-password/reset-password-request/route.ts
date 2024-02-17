@@ -1,18 +1,18 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-export const GET = async (request: NextRequest) => {
+export const POST = async (request: NextRequest) => {
   const body = await request.json();
-  const token = body.token;
 
   try {
-    const response = await fetch(`http://localhost:5000/api/users/login`, {
+    const response = await fetch(`http://localhost:5000/api/users/send-reset-token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`,
       },
+      body: JSON.stringify( body ),
     });
     let apiResp = await response.json();
+    console.log("data", apiResp);
 
     return NextResponse.json({ message: 'Operation successful', data:apiResp }, { status: 200 });
   } catch (error) {

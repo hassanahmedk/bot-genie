@@ -23,3 +23,17 @@ export interface NavigationTabProps {
   tabActive?: boolean,
   onClick: (string) => void
 }
+
+interface FormData {
+  alertName: string;
+  exchange: string;
+  multiPairCheck: boolean;
+  pair: string[];
+  trigger: string;
+  date: Date | null;
+  neverExpires: boolean;
+  webhookUrl: string;
+  alertMessage: string;
+  receiveEmailNotification: boolean;
+  receiveTelegramNotification: boolean;
+}

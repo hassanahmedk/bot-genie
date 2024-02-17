@@ -4,6 +4,7 @@ import { useState } from "react";
 import Input from "../shared/Input";
 import Button from "../shared/Button";
 import { ERROR_REASONS, emailRegex } from '@/utils';
+import ForgotPassword from './ForgotPasswordPopup';
 
 
 function LoginForm(props:any) {
@@ -11,6 +12,7 @@ function LoginForm(props:any) {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [loginError, setLoginError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [forgetPasswordDialog, setForgetPasswordDialog] = useState(false);
 
   const onChange = (event: { target: { name: string; value: string } }) => {
     setLoginData({ ...loginData, [event.target.name]: event.target.value });
@@ -32,7 +34,6 @@ function LoginForm(props:any) {
       return error;
     }
   }
-
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -83,7 +84,7 @@ function LoginForm(props:any) {
   return (
     <div className="flexCenter flex-col text-center gap-12">
       <div id="login-form-headings" className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold">Welcome Back</h1>
+        <h1 className="text-3xl font-bold text-primary-500">Welcome Back</h1>
         <h3 className="text-md">Login into your account</h3>
       </div>
       <div id="login-form" className="flexCenter flex-col gap-4">
@@ -101,6 +102,7 @@ function LoginForm(props:any) {
           value={loginData.password}
           onChange={onChange}
         />
+        <p className='self-start text-primary-600 cursor-pointer' onClick={()=>setForgetPasswordDialog(true)}>Forgot Password?</p>
         <p className="mt-2 text-red-600 self-start">{loginError}</p>
         <Button
           title="Login"
@@ -111,6 +113,9 @@ function LoginForm(props:any) {
           className="mt-4"
         />
       </div>
+      {
+        forgetPasswordDialog && <ForgotPassword handleClose={()=> setForgetPasswordDialog(false)}/>
+      }
     </div>
   );
 }

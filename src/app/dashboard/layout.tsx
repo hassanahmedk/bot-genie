@@ -13,7 +13,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
   useLayoutEffect(() => {
     const isAuth = localStorage.getItem('isAuthenticated');
     if(!isAuth){
-      redirect("/");
+      redirect("/login");
     }
   }, []);
 
