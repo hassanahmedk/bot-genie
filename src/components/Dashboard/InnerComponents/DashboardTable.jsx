@@ -35,14 +35,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function createData(
-  no: number,
-  name: string,
-  condition: string,
-  price: string,
-  indicater: string,
-  symbol: string,
-  currency: string,
-  trigger: string
+  no,
+  name,
+  condition,
+  price,
+  indicater,
+  symbol,
+  currency,
+  trigger
 ) {
   return { no, name, condition, price, indicater, symbol, currency, trigger };
 }
@@ -60,20 +60,17 @@ const rows = [{}, {}, {}, {}, {}];
 export default function DashboardTable() {
   const triggerOptions = (a, b) => {};
 
-  const [anchorElArray, setAnchorElArray] = React.useState<
-    (HTMLElement | null)[]
-  >(new Array(rows.length).fill(null));
+  const [anchorElArray, setAnchorElArray] = React.useState(new Array(rows.length).fill(null));
 
   const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    index: number
-  ) => {
+    event,
+    index  ) => {
     const newAnchorElArray = [...anchorElArray];
     newAnchorElArray[index] = event.currentTarget;
     setAnchorElArray(newAnchorElArray);
   };
 
-  const handleClose = (index: number) => {
+  const handleClose = (index) => {
     const newAnchorElArray = [...anchorElArray];
     newAnchorElArray[index] = null;
     setAnchorElArray(newAnchorElArray);

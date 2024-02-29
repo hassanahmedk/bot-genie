@@ -6,3 +6,10 @@ export const ERROR_REASONS = {
   notVerified: 'not-verified',
   notExist: 'email-not-exist',
 }
+
+
+// export const renderColoredOption = (text:string) => {
+//   if(text.toLowerCase() === "istrue"){
+//     return 
+//   }
+// }

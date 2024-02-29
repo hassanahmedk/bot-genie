@@ -28,7 +28,7 @@ function Page() {
         className={
           `w-full h-full 
           bg-white text-black
-          flex items-center flex-col 
+          flex items-center flex-col
         `}>
 
         <div id="login-right-top" className="p-12 w-full flex items-center justify-between">
@@ -37,12 +37,12 @@ function Page() {
             Don&apos;t have an account? <a href="signup" className="text-primary-500 hover:text-primary-200">Sign Up</a>
           </div>
         </div>
-        <div className="my-36">
-          <LoginForm handleLoggedIn={handleLoggedIn} />
+        <div className="flex items-center h-full">
+          <LoginForm />
         </div>
       </div>
 
-      <div id="login-right" className="w-full h-full overflow-hidden">
+      <div id="login-right" className="w-full h-full overflow-hidden hidden md:block">
         <div
           className="w-full h-full relative "
         >

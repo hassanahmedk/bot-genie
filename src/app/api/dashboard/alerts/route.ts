@@ -1,11 +1,13 @@
 import { NextResponse, NextRequest } from 'next/server';
+import { headers } from "next/headers";
+
 
 export const GET = async (request: NextRequest) => {
-  const body = await request.json();
-  const token = body.token;
+  const headersList = headers();
+  const token = headersList.get("authorization");
 
   try {
-    const response = await fetch(`http://localhost:5000/api/users/login`, {
+    const response = await fetch(`http://localhost:5000/api/alerts/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,8 +15,13 @@ export const GET = async (request: NextRequest) => {
       },
     });
     let apiResp = await response.json();
+    console.log("apiResp", apiResp);
 
-    return NextResponse.json({ message: 'Operation successful', data:apiResp }, { status: 200 });
+    if(apiResp.error){
+      return NextResponse.json({ message: apiResp.error}, { status: 500 });
+    } else {
+      return NextResponse.json({ message: 'Operation unsuccessful', data:apiResp }, { status: 200 });
+    }
   } catch (error) {
     return NextResponse.json({ message: error}, { status: 500 });
   }

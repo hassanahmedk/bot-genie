@@ -14,9 +14,29 @@ export default function AddAlertForm(props: any) {
   const handleAlertAddAPI = () => {};
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-  const [form, setForm] = useState('indicator');
-  const [formData, setFormData] = useState();
+  const [form, setForm] = useState('condition');
+  const [formData, setFormData] = useState({
+    indicators: [{
+      "indicatorName": "Absolute Price Oscillator",
+      "inputParams": {
+          "interval": "23",
+          "backtrack": "32",
+          "optInFastPeriod": "12"
+      },
+      "resultArray": [
+          "value"
+      ]
+  }]
+  });
 
+  const setFormIndicators = (updatedIndicators:any) => {
+    setFormData((prevData) => {
+      return {
+        ...prevData, 
+        indicators: updatedIndicators
+      }
+    });
+  }
 
   return (
     <Dialog open={true} fullWidth PaperProps={{style:{height: '90vh', minWidth: '40vw'}}}>
@@ -27,7 +47,7 @@ export default function AddAlertForm(props: any) {
           Alerts notify you instantly when your conditions are met.
         </DialogContentText>
         
-        <div id="alert-form-tabs" className="flex gap-1 mb-4 ml-4">
+        <div id="alert-form-tabs" className="flex gap-1 ml-4">
           <div onClick={()=>setForm('main')} 
             className={`cursor-pointer 
             ${form==="main" ? "bg-primary-800 text-white" : null}
@@ -55,12 +75,10 @@ export default function AddAlertForm(props: any) {
           : 
             form === "indicator"
             ?
-            <IndicatorForm />
+            <IndicatorForm indicators={formData.indicators} setIndicators={setFormIndicators} />
             :
-            <ConditionForm />
+            <ConditionForm indicatorsList={formData.indicators} />
         }
-
-
       </DialogContent>
       <DialogActions>
         <div className="flexCenter mr-4 mb-2 gap-2">

@@ -1,12 +1,18 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardStats from '@/components/Dashboard/DashboardStats'
 import AddAlert from '@/components/Dashboard/InnerComponents/Alert/AddAlert'
-import DashboardTable from '@/components/Dashboard/InnerComponents/DashboardTable'
+import DashboardTable from '@/components/Dashboard/InnerComponents/DashboardTable.jsx'
 import Button from '@/components/shared/Button'
 
 function Page() {
   const [addAlertOpen, setAddAlertOpen] = useState<boolean>(true);
+  const [alerts, setAlerts] = useState<any>([]);
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    setAlertsFromApi(token);
+  }, [])
 
   const alertStats = [
     {
@@ -26,6 +32,23 @@ function Page() {
   const handleAddAlert = () => {
     setAddAlertOpen(true);
   }
+
+  const setAlertsFromApi = async (token: string | null) => {
+    try {
+      const response = await fetch('/api/dashboard/alerts/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token as string
+        },
+      });
+      const data = await response.json();
+      console.log('datafrom api', data);
+      setAlerts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   return (
     <div className='flex flex-col gap-4'>
@@ -35,6 +58,7 @@ function Page() {
       { addAlertOpen &&
         <AddAlert handleClose={()=>setAddAlertOpen(false)} />
       }
+
     </div>
   )
 }
