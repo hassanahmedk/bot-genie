@@ -38,7 +38,7 @@ function Page() {
           </div>
         </div>
         <div className="flex items-center h-full">
-          <LoginForm />
+          <LoginForm handleLoggedIn={handleLoggedIn} />
         </div>
       </div>
 

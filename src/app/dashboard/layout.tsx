@@ -12,12 +12,12 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 
   useLayoutEffect(() => {
     const isAuth = localStorage.getItem('isAuthenticated');
-    // if(!isAuth){
-    //   redirect("/login");
-    // }
+    if(!isAuth){
+      redirect("/login");
+    }
   }, []);
 
- // if(typeof window !== 'undefined' && localStorage.getItem('isAuthenticated') === 'true'){
+ if(typeof window !== 'undefined' && localStorage.getItem('isAuthenticated') === 'true'){
     return (
       <MyContext.Provider value={{ currentScreen, setCurrentScreen }}>
         <div id="main-dashboard" className="h-screen w-screen flex">
@@ -35,9 +35,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         </div>
       </MyContext.Provider>
     );
- // } else {
-  //  return <></>;
-  //}
+ } else {
+   return <></>;
+  }
 }
 
 export default RootLayout;

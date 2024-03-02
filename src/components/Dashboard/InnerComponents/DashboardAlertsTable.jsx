@@ -55,10 +55,11 @@ function createData(
 //   createData('Gingerbread', 356, 16.0, 49, 3.9),
 // ];
 
-const rows = [{}, {}, {}, {}, {}];
 
-export default function DashboardTable() {
+
+export default function DashboardAlertsTable(props) {
   const triggerOptions = (a, b) => {};
+  const [rows, setRows] = React.useState([]);
 
   const [anchorElArray, setAnchorElArray] = React.useState(new Array(rows.length).fill(null));
 
@@ -106,7 +107,14 @@ export default function DashboardTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {
+          !rows.length 
+          ?
+          <div className="h-32 bg-red-200 w-full">
+            No Alerts to show
+          </div>
+          :
+          rows.map((row, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
                 {index}

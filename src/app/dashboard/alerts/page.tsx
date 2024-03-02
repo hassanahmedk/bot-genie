@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import DashboardStats from '@/components/Dashboard/DashboardStats'
 import AddAlert from '@/components/Dashboard/InnerComponents/Alert/AddAlert'
-import DashboardTable from '@/components/Dashboard/InnerComponents/DashboardTable.jsx'
+import DashboardAlertsTable from '@/components/Dashboard/InnerComponents/DashboardAlertsTable.jsx'
 import Button from '@/components/shared/Button'
 
 function Page() {
@@ -44,7 +44,7 @@ function Page() {
       });
       const data = await response.json();
       console.log('datafrom api', data);
-      setAlerts(data);
+      setAlerts(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +54,7 @@ function Page() {
     <div className='flex flex-col gap-4'>
       <DashboardStats stats={alertStats} />
       <Button title='Add Alert' onClick={handleAddAlert} type='primary' className='self-end' />
-      <DashboardTable />
+      <DashboardAlertsTable rows={alerts}/>
       { addAlertOpen &&
         <AddAlert handleClose={()=>setAddAlertOpen(false)} />
       }
