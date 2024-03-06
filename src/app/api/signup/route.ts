@@ -4,7 +4,7 @@ export const POST = async (request: NextRequest) => {
   const body = await request.json();
 
   try {
-    const response = await fetch(`https://bot-genie-server.vercel.app/api/users/login`, {
+    const response = await fetch(`https://bot-genie-server.vercel.app/api/users/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

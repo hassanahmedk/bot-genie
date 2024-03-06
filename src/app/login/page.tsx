@@ -1,9 +1,26 @@
-import React from "react";
+"use client"
+import React, { useLayoutEffect } from "react";
 import Image from "next/image";
 import LoginForm from "@/components/Auth/LoginForm";
 import Logo from "@/components/shared/Logo";
+import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
-function page() {
+function Page() {
+  const router = useRouter();
+  const handleLoggedIn = (token:string) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('isAuthenticated', 'true');
+    router.push("/dashboard/alerts");
+  }
+
+  useLayoutEffect(() => {
+    const isAuth = localStorage.getItem('isAuthenticated');
+    if(isAuth){
+      redirect("/dashboard/alerts");
+    }
+  }, []);
+
   return (
     <div className="flex h-screen w-screen bg-white">
       <div 
@@ -11,7 +28,7 @@ function page() {
         className={
           `w-full h-full 
           bg-white text-black
-          flex items-center flex-col 
+          flex items-center flex-col
         `}>
 
         <div id="login-right-top" className="p-12 w-full flex items-center justify-between">
@@ -20,12 +37,12 @@ function page() {
             Don&apos;t have an account? <a href="signup" className="text-primary-500 hover:text-primary-200">Sign Up</a>
           </div>
         </div>
-        <div className="my-36">
-          <LoginForm />
+        <div className="flex items-center h-full">
+          <LoginForm handleLoggedIn={handleLoggedIn} />
         </div>
       </div>
 
-      <div id="login-right" className="w-full h-full overflow-hidden">
+      <div id="login-right" className="w-full h-full overflow-hidden hidden md:block">
         <div
           className="w-full h-full relative "
         >
@@ -41,4 +58,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
