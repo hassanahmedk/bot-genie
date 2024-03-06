@@ -32,8 +32,6 @@ interface FormData {
   trigger: string;
   date: Date | null;
   neverExpires: boolean;
-  webhookUrl: string;
-  alertMessage: string;
   receiveEmailNotification: boolean;
   receiveTelegramNotification: boolean;
 }

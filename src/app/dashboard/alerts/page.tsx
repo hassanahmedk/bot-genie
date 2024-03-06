@@ -6,26 +6,28 @@ import DashboardAlertsTable from '@/components/Dashboard/InnerComponents/Dashboa
 import Button from '@/components/shared/Button'
 
 function Page() {
-  const [addAlertOpen, setAddAlertOpen] = useState<boolean>(true);
+  const [addAlertOpen, setAddAlertOpen] = useState<boolean>(false);
   const [alerts, setAlerts] = useState<any>([]);
+  const [totalAlerts, setTotalAlerts] = useState<number>(0);
+  const [activeAlerts, setActiveAlerts] = useState<number>(0);
+  // text to show when there's no rows in the table: either loading or no alerts are there
+  const [noRowsText, setNoRowsText] = React.useState("Loading...");
 
   useEffect(()=>{
+    setNoRowsText("Loading...");
     const token = localStorage.getItem('token');
     setAlertsFromApi(token);
   }, [])
 
   const alertStats = [
     {
-      title:'Total Alerts', value: 240, bg:'#FFEFE7', color:'#FF5500'
+      title:'Total Alerts', value: totalAlerts, bg:'#FFEFE7', color:'#FF5500'
     },
     {
-      title:'Active Alerts', value: 10, bg:'#E8F0FB', color:'#4493FF'
+      title:'Active Alerts', value: activeAlerts, bg:'#E8F0FB', color:'#4493FF'
     },
     {
-      title:'Today Alerts', value: 32, bg:'#FDEBF9', color:'#FF67DD'
-    },
-    {
-      title:'Inactive Alerts', value: 4, bg:'#F2F0BB', color:'#BEAB00'
+      title:'Inactive Alerts', value: 0, bg:'#F2F0BB', color:'#BEAB00'
     }
   ]  
   
@@ -43,10 +45,14 @@ function Page() {
         },
       });
       const data = await response.json();
-      console.log('datafrom api', data);
+      // console.log('datafrom api', data);
       setAlerts(data.data);
+      setTotalAlerts(data.data.length)
+      setActiveAlerts(data.data.length)
+      setNoRowsText("No alerts are added.");
     } catch (error) {
       console.log(error);
+      setNoRowsText("An error occured while loading alerts, please try reloading.");
     }
   }
   
@@ -54,7 +60,7 @@ function Page() {
     <div className='flex flex-col gap-4'>
       <DashboardStats stats={alertStats} />
       <Button title='Add Alert' onClick={handleAddAlert} type='primary' className='self-end' />
-      <DashboardAlertsTable rows={alerts}/>
+      <DashboardAlertsTable alerts={alerts} noRowsText={noRowsText}/>
       { addAlertOpen &&
         <AddAlert handleClose={()=>setAddAlertOpen(false)} />
       }

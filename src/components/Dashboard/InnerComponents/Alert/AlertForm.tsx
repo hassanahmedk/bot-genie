@@ -2,38 +2,26 @@
 import DateTimePicker from '@/components/shared/MUIDateTimePicker';
 import { FormData } from '@/interface/interface';
 import { FormControl, TextField, InputLabel, Select, MenuItem, Checkbox, Autocomplete, InputAdornment } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import MyButton from '@/components/shared/Button';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
-function AlertForm() {
-  const [formData, setFormData] = useState<FormData>({
-    alertName: '',
-    exchange: '',
-    multiPairCheck: false,
-    pair: [],
-    trigger: 'only_once',
-    neverExpires: false,
-    date: null,
-    webhookUrl: '',
-    alertMessage: '',
-    receiveEmailNotification: false,
-    receiveTelegramNotification: false,
-  });
+function AlertForm({
+  formData, 
+  handleChange,
+  addWebhook, 
+  handleWebhookChange, 
+  webhooks:webhooksFromProps,
+  handleDeleteWebhook
+}
+:any) {
 
-  const handleChange = (key: keyof FormData, value: string | boolean | string[]) => {
-    // reset pairs
-    if(key === "multiPairCheck"){
-      setFormData((prevData) => ({
-        ...prevData, 
-        pair: []
-      }))
-    }
+  const [webhooks, setWebhooks] = useState<any>([]);
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [key]: value,
-    }));
-  };
+  useEffect(() => {
+    setWebhooks(webhooksFromProps)
+  }, [webhooksFromProps])
 
   return (
     <div className="flex flex-col gap-2">
@@ -80,7 +68,7 @@ function AlertForm() {
             id="combo-box-demo"
             options={['BTC/USDT', 'ETH/USDT']}
             value={formData.pair}
-            onChange={(_, newValue) => handleChange('pair', newValue)}
+            onChange={(_, newValue) => handleChange('pair', newValue as any)}
             sx={{ width: 420, marginLeft: 4 }}
             renderInput={(params) => <TextField {...params} label={`Symbol(s)`} />}
           />
@@ -120,42 +108,68 @@ function AlertForm() {
         <div className="flex items-center text-sm opacity-90 relative z-10">
           <Checkbox
             checked={formData.neverExpires}
-            onChange={(e) => handleChange('neverExpires', e.target.checked)}
+            onChange={(e) => {
+              handleChange('neverExpires', e.target.checked)
+              // to bypass the null value check
+              handleChange('date', 1)
+            }}
           />
           Never Expires
         </div>
       </FormControl>
-      
-      <FormControl fullWidth>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="webhook_url"
-          label="Webhook URL"
-          type="text"
-          fullWidth
-          variant="outlined"
-          value={formData.webhookUrl}
-          onChange={(e) => handleChange('webhookUrl', e.target.value)}
-        />
-      </FormControl>
+      <div className="flex flex-col gap-4 my-2">
+      {
+        webhooks.map((webhook:any, webhookIndex:number) => {
+          return(
+          <div key={webhookIndex} className='p-4 border-gray-400 border'>
+            <div className='flex justify-between mb-2'>
+              <h3 className="text-lg font-semibold">Webhook - {webhookIndex+1}</h3>
+              <p onClick={() => handleDeleteWebhook(webhookIndex)} className="cursor-pointer text-red-800">Remove</p>
+            </div>
+            <FormControl fullWidth>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="webhook_url"
+                label="Webhook URL"
+                type="text"
+                fullWidth
+                variant="outlined"
+                value={webhook.webhookURL}
+                onChange={(e) => handleWebhookChange("webhookURL", e.target.value, webhookIndex)}
+              />
+            </FormControl>
 
-      {/* Alert Message */}
-      <FormControl fullWidth>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="alert_message"
-          label="Alert Message"
-          type="text"
-          fullWidth
-          variant="outlined"
-          multiline
-          minRows={3}
-          value={formData.alertMessage}
-          onChange={(e) => handleChange('alertMessage', e.target.value)}
+            {/* Alert Message */}
+            <FormControl fullWidth>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="alert_message"
+                label="Alert Message"
+                type="text"
+                fullWidth
+                variant="outlined"
+                multiline
+                minRows={3}
+                value={webhook.message}
+                onChange={(e) => handleWebhookChange("message", e.target.value, webhookIndex)}
+              />
+            </FormControl>
+          </div>
+          )
+        })
+      }
+      </div>
+      {
+        webhooks.length < 6 
+        ?
+        <MyButton title="Add Webhook" size="small" type="secondary" 
+            onClick={addWebhook} 
+            className="text-sm py-1" 
         />
-      </FormControl>
+        : null
+      }
 
       {/* Receive Email Notification */}
       <FormControl fullWidth>

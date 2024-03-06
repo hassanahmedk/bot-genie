@@ -131,7 +131,8 @@ function SignupForm(props:any) {
           type="primary"
           size="lg"
           disabled={loading}
-          onClick={onSubmit}
+          // onClick={onSubmit}
+          onClick={() => alert("Signup is disabled")}
           className="mt-4"
         />
       </div>

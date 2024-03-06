@@ -11,13 +11,13 @@ function Page() {
   const handleLoggedIn = (token:string) => {
     localStorage.setItem('token', token);
     localStorage.setItem('isAuthenticated', 'true');
-    router.push("/dashboard");
+    router.push("/dashboard/alerts");
   }
 
   useLayoutEffect(() => {
     const isAuth = localStorage.getItem('isAuthenticated');
     if(isAuth){
-      redirect("/dashboard");
+      redirect("/dashboard/alerts");
     }
   }, []);
 

@@ -12,9 +12,16 @@ function RootLayout({ children }: { children: React.ReactNode }) {
 
   useLayoutEffect(() => {
     const isAuth = localStorage.getItem('isAuthenticated');
+    const hasToken = localStorage.getItem('token');
     if(!isAuth){
       redirect("/login");
     }
+    
+    if(!hasToken){
+      const isAuth = localStorage.removeItem('isAuthenticated');
+      redirect("/login");
+    }
+    
   }, []);
 
  if(typeof window !== 'undefined' && localStorage.getItem('isAuthenticated') === 'true'){

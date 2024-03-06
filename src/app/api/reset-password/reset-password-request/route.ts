@@ -4,7 +4,7 @@ export const POST = async (request: NextRequest) => {
   const body = await request.json();
 
   try {
-    const response = await fetch(`http://localhost:5000/api/users/send-reset-token`, {
+    const response = await fetch(`https://bot-genie-server.vercel.app/api/users/send-reset-token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

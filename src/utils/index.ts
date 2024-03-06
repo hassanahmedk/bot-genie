@@ -13,3 +13,17 @@ export const ERROR_REASONS = {
 //     return 
 //   }
 // }
+
+
+
+// Form checks
+
+export const nullCheck = (formData:any) => {
+  return(Object.values(formData).some((field) => field === "" || field === null));
+}
+
+
+export const getFormattedTrigger = (triggerText: string) => {
+  if(triggerText === "only_once") return "Only Once" 
+  else return "Everytime"
+}

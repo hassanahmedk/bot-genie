@@ -13,6 +13,7 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConditionIcon from "@/components/shared/ConditionIcon";
+import { getFormattedTrigger } from "@/utils";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -60,8 +61,18 @@ function createData(
 export default function DashboardAlertsTable(props) {
   const triggerOptions = (a, b) => {};
   const [rows, setRows] = React.useState([]);
+  const [noRowsText, setNoRowsText] = React.useState("");
 
-  const [anchorElArray, setAnchorElArray] = React.useState(new Array(rows.length).fill(null));
+  const [anchorElArray, setAnchorElArray] = React.useState(new Array(rows?.length).fill(null));
+
+  React.useEffect(()=>{
+    console.log('alertss', props.alerts)
+    setRows(props?.alerts);
+  }, [props.alerts]);
+
+  React.useEffect(()=>{
+    setNoRowsText(props?.noRowsText);
+  }, [props.noRowsText]);
 
   const handleClick = (
     event,
@@ -99,52 +110,57 @@ export default function DashboardAlertsTable(props) {
               <h2 className="text-md font-semibold">No of Indicators</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
-              <h2 className="text-md font-semibold">Webhook URL</h2>
+              <h2 className="text-md font-semibold">Webhooks</h2>
             </StyledTableCell>
             <StyledTableCell align="left">
               <h2 className="text-md font-semibold">ACTIONS</h2>
             </StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
           {
-          !rows.length 
+          rows?.length 
           ?
-          <div className="h-32 bg-red-200 w-full">
-            No Alerts to show
-          </div>
-          :
-          rows.map((row, index) => (
+        <TableBody>
+          {rows.map((row, index) => (
             <StyledTableRow key={index}>
               <StyledTableCell component="th" scope="row">
-                {index}
+                {index+1}
               </StyledTableCell>
               <StyledTableCell align="left">
-                <div className=" text-lg">{"Alert No 45"}</div>
+                <div className=" text-lg">{row.alertName}</div>
               </StyledTableCell>
 
               <StyledTableCell align="left">
                 <div className="flex items-center gap-2">
                   <ConditionIcon condition="crossing" />
-                  <div className="">{"Crossing"}</div>
+                  <div className="">{row.exchange}</div>
                 </div>
               </StyledTableCell>
 
-              <StyledTableCell align="left">{"$112.00"}</StyledTableCell>
-
-              <StyledTableCell align="left">{"3Crows"}</StyledTableCell>
-
               <StyledTableCell align="left">
-                <div className="font-semibold text-md">{"BTC"}</div>
-                <br />
-                {"Binance"}
+                <span className="font-semibold">
+                  {row.multiPair.join(', ')}  
+                </span>
               </StyledTableCell>
 
               <StyledTableCell align="left">
-                <div className="font-semibold text-md">{"Only Once"}</div>
+                <div className="font-semibold text-md">{getFormattedTrigger(row.trigger)}</div>
                 <br />
-                Expires on {"26 June 2024"}
+                Expires on <span className="font-semibold">{row.expiration.slice(0,10)}</span>
               </StyledTableCell>
+              <StyledTableCell align="left">{row.indicators.length}</StyledTableCell>
+
+              <StyledTableCell align="left">
+                {
+                  row.webhooks.length 
+                  ?
+                    row.webhooks.map((webhook, index) => {
+                      return  (<div className="font-semibold text-md" key={index}>{webhook.webhookURL}</div>)
+                    })
+                  : <div className="italic">No Webhooks</div>
+                }
+              </StyledTableCell>
+
 
               <StyledTableCell align="left" key={index}>
                 <div className="">
@@ -189,7 +205,18 @@ export default function DashboardAlertsTable(props) {
             </StyledTableRow>
           ))}
         </TableBody>
+        : null
+      }
       </Table>
+      {
+        rows?.length
+        ? 
+        null 
+        :
+        <div className="bg-white w-full text-center py-8 text-lg italic">
+          {noRowsText}
+        </div>
+      }
     </TableContainer>
   );
 }

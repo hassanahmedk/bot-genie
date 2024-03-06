@@ -5,7 +5,7 @@ export const POST = async (request: NextRequest) => {
   console.log({ body });
   let apiResp;
   try {
-    const response = await fetch(`http://localhost:5000/api/users/verify/${body.token}`, {
+    const response = await fetch(`https://bot-genie-server.vercel.app/api/users/verify/${body.token}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
