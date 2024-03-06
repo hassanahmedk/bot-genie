@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import DashboardStats from '@/components/Dashboard/DashboardStats'
 import AddAlert from '@/components/Dashboard/InnerComponents/Alert/AddAlert'
-import DashboardLogsTable from '@/components/Dashboard/InnerComponents/DashboardLogsTable'
 import Button from '@/components/shared/Button'
 
 function Page() {
@@ -27,7 +26,7 @@ function Page() {
       <DashboardStats stats={logStats} />
       <Button title='Download' onClick={handleAddAlert} type='primary' className='self-end' />
       <div className='max-h-[60vh] overflow-scroll no-scrollbar'>
-      <DashboardLogsTable />
+      {/* <DashboardLogsTable /> */}
       </div>
     </div>
   )

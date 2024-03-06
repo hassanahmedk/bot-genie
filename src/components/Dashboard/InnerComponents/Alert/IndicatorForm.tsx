@@ -91,7 +91,7 @@ const IndicatorForm: any = ({
     const selected = indicatorsArray.find(
       (indicator) => indicator.IndicatorName === newValue
     );
-    setSelectedIndicator(selected || null);
+    setSelectedIndicator(selected as any);
     setInputParams({});
     setAutocompleteValue(newValue as any);
   };
