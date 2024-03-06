@@ -1,11 +1,17 @@
+"use client" //!remove this line
 import Blogpost from "public/components/Blogpost.jsx";
 import { Blogg } from "public/components/Blog.jsx";
 import Contact from "public/components/Contact.jsx";
 import Footer from "public/components/Footer.jsx";
 import Logo from "@/components/shared/Logo";
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    redirect("/login");
+  }, []);
   return (
     <>
       {/* Header */}
