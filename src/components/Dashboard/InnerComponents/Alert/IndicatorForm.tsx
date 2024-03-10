@@ -193,7 +193,7 @@ const IndicatorForm: any = ({
                 autoFocus
                 margin="dense"
                 label="Interval"
-                type="text"
+                type="number"
                 fullWidth
                 variant="outlined"
                 // if the indicator is in edit state then get value from edit data else from the indicator
@@ -215,7 +215,7 @@ const IndicatorForm: any = ({
                 autoFocus
                 margin="dense"
                 label="Backtrack"
-                type="text"
+                type="number"
                 fullWidth
                 variant="outlined"
                 // if the indicator is in edit state then get value from edit data else from the indicator

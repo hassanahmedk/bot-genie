@@ -56,11 +56,18 @@ function Page() {
     }
   }
   
+  const handleAlertDelete = (alertID:string) => {
+    setAlerts((prev:any) => prev.filter((alert:any) => alert._id !== alertID ))
+  }
+
   return (
     <div className='flex flex-col gap-4'>
       <DashboardStats stats={alertStats} />
       <Button title='Add Alert' onClick={handleAddAlert} type='primary' className='self-end' />
-      <DashboardAlertsTable alerts={alerts} noRowsText={noRowsText}/>
+      <DashboardAlertsTable 
+        alerts={alerts} noRowsText={noRowsText}
+        handleAlertDelete={handleAlertDelete}
+        />
       { addAlertOpen &&
         <AddAlert handleClose={()=>setAddAlertOpen(false)} />
       }

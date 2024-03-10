@@ -52,3 +52,28 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ message: error}, { status: 500 });
   }
 };
+
+
+export const DELETE = async (request: NextRequest) => {
+  const headersList = headers();
+  const token = headersList.get("authorization");
+  const alertID = headersList.get("alertID");
+  try {
+    const response = await fetch(`https://bot-genie-server.vercel.app/api/alerts/${alertID}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `${token}`,
+      },
+    });
+    let apiResp = await response.json();
+
+    if(apiResp.error){
+      return NextResponse.json({ error: apiResp.error}, { status: 500 });
+    } else {
+      return NextResponse.json({ message: 'Operation successful', data:apiResp }, { status: 200 });
+    }
+  } catch (error) {
+    return NextResponse.json({ message: error}, { status: 500 });
+  }
+};

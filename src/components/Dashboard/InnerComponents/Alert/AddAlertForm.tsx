@@ -12,8 +12,10 @@ import ConditionForm from "./ConditionForm";
 import { nullCheck } from "@/utils";
 
 export default function AddAlertForm(props: any) {
+  const [loading, setLoading] = useState(false);
 
-  const handleAlertAddAPI = async () => {
+  const handleAlertAddAPI:any = async () => {
+    
     if(nullCheck(formData)){
       setFormError("* Please fill in all the fields")
       return;
@@ -23,13 +25,14 @@ export default function AddAlertForm(props: any) {
       setFormError("* Please add a condition for alert")
       return;  
     }
-
+    
     if(!formData.indicators.length){
       setFormError("* Please add atleast one indicator")
       return;  
     }
     setFormError("");
-
+    setLoading(true);
+    
     const token = localStorage.getItem("token");
     try {
       const response = await fetch('/api/dashboard/alerts/', {
@@ -41,9 +44,12 @@ export default function AddAlertForm(props: any) {
         body: JSON.stringify({...formData, webhooks})
       });
       const data = await response.json();
-      alert("alert saved")
+      alert("Your Alert is saved");
+      window.location.reload();
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
 
   };
@@ -180,6 +186,7 @@ export default function AddAlertForm(props: any) {
             <ConditionForm 
               indicatorsList={formData.indicators} 
               setCondition={setFormCondition} 
+              condition={formData.condition}
             />
         }
       </DialogContent>
@@ -201,10 +208,11 @@ export default function AddAlertForm(props: any) {
               size="sm"
             />
             <Button
-              title="Add Alert"
+              title={loading ? "...Saving" : "Add Alert"}
               type="primary"
               onClick={handleAlertAddAPI}
               size="sm"
+              disabled={loading}
             />
           </div>
         </div>

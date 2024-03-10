@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Button,
@@ -20,9 +20,10 @@ interface Indicator {
 interface Props {
   indicatorsList: Indicator[];
   setCondition: any;
+  condition: any;
 }
 
-function ConditionForm({ indicatorsList, setCondition }: Props) {
+function ConditionForm({ indicatorsList, setCondition, condition }: Props) {
   const [expression, setExpression] = useState<string[]>([]);
 
   const [numericalValueOption, setNumericalValueOption] = useState<any>();
@@ -35,6 +36,11 @@ function ConditionForm({ indicatorsList, setCondition }: Props) {
       // add the logic to add options as push in array so that we can differentaite and erase them
     }
   };
+
+
+  useEffect(()=>{
+    setExpression(condition);
+  }, [condition])
 
   const generateOptions = () => {
     const options: JSX.Element[] = [];

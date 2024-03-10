@@ -13,7 +13,8 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConditionIcon from "@/components/shared/ConditionIcon";
-import { getFormattedTrigger } from "@/utils";
+import ConfirmDelete from "./Alert/ConfirmDelete";
+import { getFormattedExchange, getFormattedTrigger } from "@/utils";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -63,6 +64,10 @@ export default function DashboardAlertsTable(props) {
   const [rows, setRows] = React.useState([]);
   const [noRowsText, setNoRowsText] = React.useState("");
 
+  const [confirmDialog, setConfirmDialog] = React.useState(false);
+  // passed in confirm delete dialog
+  const [alertIDtoDelete, setAlertIDtoDelete] = React.useState("");
+
   const [anchorElArray, setAnchorElArray] = React.useState(new Array(rows?.length).fill(null));
 
   React.useEffect(()=>{
@@ -82,14 +87,28 @@ export default function DashboardAlertsTable(props) {
     setAnchorElArray(newAnchorElArray);
   };
 
+
+  const handleDeleteAlert = (alertID) => {
+    setAlertIDtoDelete(alertID);
+    setConfirmDialog(true);
+  }
+
   const handleClose = (index) => {
     const newAnchorElArray = [...anchorElArray];
     newAnchorElArray[index] = null;
     setAnchorElArray(newAnchorElArray);
   };
 
+
   return (
     <TableContainer component={Paper}>
+      <ConfirmDelete 
+        open={confirmDialog} 
+        closeDialog={()=>{setAlertIDtoDelete(""); setConfirmDialog(false)}} 
+        deleteID={alertIDtoDelete}
+        handleAlertDelete={props?.handleAlertDelete}
+        />
+
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -133,7 +152,7 @@ export default function DashboardAlertsTable(props) {
               <StyledTableCell align="left">
                 <div className="flex items-center gap-2">
                   <ConditionIcon condition="crossing" />
-                  <div className="">{row.exchange}</div>
+                  <div className="">{getFormattedExchange(row.exchange)}</div>
                 </div>
               </StyledTableCell>
 
@@ -146,7 +165,12 @@ export default function DashboardAlertsTable(props) {
               <StyledTableCell align="left">
                 <div className="font-semibold text-md">{getFormattedTrigger(row.trigger)}</div>
                 <br />
-                Expires on <span className="font-semibold">{row?.expiration?.slice(0,10)}</span>
+                {
+                  (row?.expiration?.length) 
+                  ? (<>Expires on <span className="font-semibold">{row?.expiration?.slice(0,10)}</span></>)
+                  : (<span className="italic">Never Expires</span>)
+                }
+                
               </StyledTableCell>
               <StyledTableCell align="left">{row.indicators.length}</StyledTableCell>
 
@@ -193,10 +217,15 @@ export default function DashboardAlertsTable(props) {
                           Edit <EditIcon />
                         </div>
                       </MenuItem>
-                      <MenuItem onClick={() => {}}>
+                      <MenuItem 
+                        onClick={() => {
+                          handleDeleteAlert(row._id)
+                          handleClose(index); 
+                        }}
+                      >
                         <div className="flex justify-between w-full">
                           Delete <DeleteIcon />
-                        </div>{" "}
+                        </div>
                       </MenuItem>
                     </Menu>
                   </div>

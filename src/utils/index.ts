@@ -27,3 +27,10 @@ export const getFormattedTrigger = (triggerText: string) => {
   if(triggerText === "only_once") return "Only Once" 
   else return "Everytime"
 }
+
+
+export const getFormattedExchange = (exchange: string) => {
+  if(exchange && exchange?.length){
+    return exchange.split("_").join(" ");
+  }
+}
