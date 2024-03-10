@@ -9,7 +9,7 @@ import { useLayoutEffect, useState } from "react";
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   const [currentScreen, setCurrentScreen] = useState<string>("HOME");
-
+  
   useLayoutEffect(() => {
     const isAuth = localStorage.getItem('isAuthenticated');
     const hasToken = localStorage.getItem('token');
