@@ -1,9 +1,14 @@
 'use client'
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DashboardLog from "./InnerComponents/DashboardLog";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import MyContext from "@/context/appContext";
 
 function DashboardLogs() {
+  const { currentScreen, setCurrentScreen } = useContext(MyContext);
+  const router = useRouter();
+
   const [logs, setLogs] = useState([
     {
       title: "lorem ipsum sit amet lorem",
@@ -44,7 +49,7 @@ function DashboardLogs() {
         }
       </div>
       <div className="w-full flex justify-center text-sm py-2 text-primary-500 font-semibold border-t border-gray-300">
-        <Link href="">View All Logs</Link>
+        <button href="" onClick={()=>{setCurrentScreen("LOGS"); router.push('/dashboard/logs')}} >View All Logs</button>
       </div>
     </div>
   );

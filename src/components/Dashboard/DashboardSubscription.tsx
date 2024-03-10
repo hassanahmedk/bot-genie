@@ -1,8 +1,14 @@
 "use client"
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../shared/Button";
+import { useRouter } from "next/navigation";
+import MyContext from "@/context/appContext";
 
 function DashboardSubscription() {
+
+  const { currentScreen, setCurrentScreen } = useContext(MyContext);
+  const router = useRouter();
+
   return (
     <div id="dashboard-subscription" className="w-full bg-[#161E54] text-fullWhite px-6 py-4 rounded">
       <div className="bg-[#1B204A] text-2xl pb-4">Your Subscription</div>
@@ -13,7 +19,9 @@ function DashboardSubscription() {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem
           praesentium aperiam voluptas maxime.
         </div>
-        <Button title="See Subscriptions" onClick={()=>{}} type="primary" className="mt-6 self-center" />
+        <Button title="See Subscriptions" 
+          onClick={()=>{setCurrentScreen("SUBSCRIPTION"); router.push('/dashboard/subscriptions')}}
+          type="primary" className="mt-6 self-center" />
       </div>
     </div>
   );

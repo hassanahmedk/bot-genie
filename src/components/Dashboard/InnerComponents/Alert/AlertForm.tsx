@@ -49,9 +49,17 @@ function AlertForm({
           value={formData.exchange}
           onChange={(e) => handleChange('exchange', e.target.value as string)}
         >
-          <MenuItem value="10">Bitcoin</MenuItem>
-          <MenuItem value="20">Ethereum</MenuItem>
-          <MenuItem value="30">Other</MenuItem>
+          <MenuItem value="US_Stock">US Stocks</MenuItem>
+          <MenuItem value="Binance">Binance</MenuItem>
+          <MenuItem value="Binance_Futures">Binance Futures</MenuItem>
+          <MenuItem value="Bitstamp">Bitstamp</MenuItem>
+          <MenuItem value="WhiteBIT">WhiteBIT</MenuItem>
+          <MenuItem value="ByBit">ByBit</MenuItem>
+          <MenuItem value="Gate.io">Gate.io</MenuItem>
+          <MenuItem value="Coinbase">Coinbase</MenuItem>
+          <MenuItem value="Binance_US">Binance US</MenuItem>
+          <MenuItem value="Kraken">Kraken</MenuItem>
+
         </Select>
       </FormControl>
 

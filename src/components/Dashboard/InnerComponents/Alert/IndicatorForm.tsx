@@ -323,11 +323,19 @@ const IndicatorForm: any = ({
                   autoFocus
                   margin="dense"
                   label={param.Name}
-                  type="text"
+                  type="number"
                   fullWidth
                   variant="outlined"
                   value={inputParams[param.Key] || ""}
-                  onChange={(e) => handleParamChange(param.Key, e.target.value)}
+                  onChange={(e) => {
+                    if(parseInt(e.target.value) >= parseInt(param.max as any)
+                     || parseInt(e.target.value) <= parseInt(param.min as any)
+                    )
+                    {
+                      return;
+                    }
+                  handleParamChange(param.Key, e.target.value)
+                  }}
                   placeholder={`Min: ${param.min || ""} Max: ${
                     param.max || ""
                   }`}

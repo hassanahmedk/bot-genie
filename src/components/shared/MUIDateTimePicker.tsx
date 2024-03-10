@@ -4,6 +4,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker as  DateTimePickerComponent} from '@mui/x-date-pickers/DateTimePicker';
+import dayjs from 'dayjs';
 
 export default function DateTimePicker(props:any ) {
   const [disabled, setDisabled] = React.useState<boolean>(false);
@@ -15,7 +16,7 @@ export default function DateTimePicker(props:any ) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DateTimePicker']}>
-        <DateTimePickerComponent disabled={disabled} value={props.value} onChange={props.onChange} label="Expiration" />
+        <DateTimePickerComponent disabled={disabled} value={dayjs(props.value)} onChange={props.onChange} label="Expiration" />
       </DemoContainer>
     </LocalizationProvider>
   );
