@@ -146,7 +146,7 @@ export default function DashboardAlertsTable(props) {
               <StyledTableCell align="left">
                 <div className="font-semibold text-md">{getFormattedTrigger(row.trigger)}</div>
                 <br />
-                Expires on <span className="font-semibold">{row?.expiration?.slice(0,10)}</span>
+                Expires on <span className="font-semibold">{row.expiration.slice(0,10)}</span>
               </StyledTableCell>
               <StyledTableCell align="left">{row.indicators.length}</StyledTableCell>
 

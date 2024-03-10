@@ -28,12 +28,10 @@ function ConditionForm({ indicatorsList, setCondition }: Props) {
   const [numericalValueOption, setNumericalValueOption] = useState<any>();
 
   const handleOptionClick = (option: string) => {
-    if(option && option.length){
-      // Append the selected option to the existing expression
-      setExpression([...expression, option]);
-      setCondition([...expression, option]);
-      // add the logic to add options as push in array so that we can differentaite and erase them
-    }
+    // Append the selected option to the existing expression
+    setExpression([...expression, option]);
+    setCondition([...expression, option]);
+    // add the logic to add options as push in array so that we can differentaite and erase them
   };
 
   const generateOptions = () => {
@@ -63,8 +61,6 @@ function ConditionForm({ indicatorsList, setCondition }: Props) {
   };
 
   const renderColoredOption = (text: string) => {
-    if(!text || text?.length === 0) return;
-
     if (text.toLowerCase() === "isfalse") {
       return <span className="text-red-700">{text}</span>;
     } else if (text.toLowerCase() === "istrue") {
