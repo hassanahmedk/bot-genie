@@ -67,7 +67,7 @@ function DashboardAlerts() {
         ))}
       </div>
       <div className="w-full flex justify-center text-sm py-2 text-primary-500 font-semibold border-t border-gray-300">
-        <button href="" onClick={()=>{setCurrentScreen("ALERTS"); router.push('/dashboard/alerts')}}  >
+        <button onClick={()=>{setCurrentScreen("ALERTS"); router.push('/dashboard/alerts')}}  >
           View All Alerts
         </button>
       </div>

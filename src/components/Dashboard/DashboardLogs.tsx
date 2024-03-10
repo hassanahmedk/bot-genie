@@ -49,7 +49,7 @@ function DashboardLogs() {
         }
       </div>
       <div className="w-full flex justify-center text-sm py-2 text-primary-500 font-semibold border-t border-gray-300">
-        <button href="" onClick={()=>{setCurrentScreen("LOGS"); router.push('/dashboard/logs')}} >View All Logs</button>
+        <button onClick={()=>{setCurrentScreen("LOGS"); router.push('/dashboard/logs')}} >View All Logs</button>
       </div>
     </div>
   );
