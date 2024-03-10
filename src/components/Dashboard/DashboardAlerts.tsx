@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DashboardAlert from "./InnerComponents/DashboardAlert";
 import Button from "../shared/Button";
 import MyContext from "@/context/appContext";
@@ -11,39 +11,31 @@ function DashboardAlerts() {
   const router = useRouter();
 
   const [alerts, setAlerts] = useState([
-    {
-      title: "lorem ipsum sit amet lorem",
-      condition: "grossing-up",
-      currency: "BTC",
-      price: "$1210",
-      trigger: "Everytime",
-      expiresOn: "24 Jan 2024",
-    },
-    {
-      title: "lorem ipsum sit amet lorem",
-      condition: "grossing-up",
-      currency: "BTC",
-      price: "$1210",
-      trigger: "Only Once",
-      expiresOn: "24 Jan 2024",
-    },
-    {
-      title: "lorem ipsum sit amet lorem",
-      condition: "grossing-up",
-      currency: "BTC",
-      price: "$1210",
-      trigger: "Everytime",
-      expiresOn: "24 Jan 2024",
-    },
-    {
-      title: "lorem ipsum sit amet lorem",
-      condition: "grossing-down",
-      currency: "BTC",
-      price: "$1210",
-      trigger: "Everytime",
-      expiresOn: "24 Jan 2024",
-    },
   ]);
+
+  
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    setAlertsFromApi(token);
+  }, [])
+
+  
+  const setAlertsFromApi = async (token: string | null) => {
+    try {
+      const response = await fetch('/api/dashboard/alerts/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token as string
+        },
+      });
+      const data = await response.json();
+      // console.log('datafrom api', data);
+      setAlerts(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="border border-gray-300 shadow-sm flex flex-col gap-2 pt-4 rounded w-full">
@@ -54,17 +46,21 @@ function DashboardAlerts() {
           className="w-32 text-sm mr-4" />
       </div>
       <div id="dashboard-alerts" className="flex flex-col gap-2 p-4">
-        {alerts.map((alert, index) => (
+        {
+        alerts.length ?
+        alerts.map((alert:any, index) => (
           <DashboardAlert 
             key={index} 
-            title={alert.title} 
+            title={alert.alertName} 
             condition={alert.condition}
-            currency={alert.currency}
-            price={alert.price}
+            currency={alert.exchange}
+            price={`#Indicators: ${alert.indicators?.length}`}
             trigger={alert.trigger}
             expiresOn={alert.expiresOn}
             />
-        ))}
+        ))
+          : <span className="italic text-center my-4">Loading Alerts...</span>
+      }
       </div>
       <div className="w-full flex justify-center text-sm py-2 text-primary-500 font-semibold border-t border-gray-300">
         <button onClick={()=>{setCurrentScreen("ALERTS"); router.push('/dashboard/alerts')}}  >

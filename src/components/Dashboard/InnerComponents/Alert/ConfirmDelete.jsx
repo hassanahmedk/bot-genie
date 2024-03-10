@@ -41,7 +41,6 @@ export default function ConfirmDelete(props) {
         },
       });
       const data = await response.json();
-      alert("Alert is deleted.");
       handleClose();
       props.handleAlertDelete(props?.deleteID);
       setLoading(false);

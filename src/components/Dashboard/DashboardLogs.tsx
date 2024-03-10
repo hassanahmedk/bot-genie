@@ -45,7 +45,8 @@ function DashboardLogs() {
       <h2 className="text-xl font-semibold px-4 ">Logs</h2>
       <div id="dashboard-logs" className="flex flex-col gap-2 p-4">
         {
-          logs.map((log, index)=> <DashboardLog key={index} title={log.title} time={log.time}/>)
+          // logs.map((log, index)=> <DashboardLog key={index} title={log.title} time={log.time}/>)
+          <span className="italic text-center">No logs to show</span>
         }
       </div>
       <div className="w-full flex justify-center text-sm py-2 text-primary-500 font-semibold border-t border-gray-300">
