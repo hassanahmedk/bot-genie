@@ -15,6 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ConditionIcon from "@/components/shared/ConditionIcon";
 import ConfirmDelete from "./Alert/ConfirmDelete";
 import { getFormattedExchange, getFormattedTrigger } from "@/utils";
+import EditAlert from "./Alert/EditAlert";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -49,16 +50,6 @@ function createData(
   return { no, name, condition, price, indicater, symbol, currency, trigger };
 }
 
-// const rows = [
-//   createData(1, "Alert No 45", 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
-
-
 export default function DashboardAlertsTable(props) {
   const triggerOptions = (a, b) => {};
   const [rows, setRows] = React.useState([]);
@@ -67,8 +58,9 @@ export default function DashboardAlertsTable(props) {
   const [confirmDialog, setConfirmDialog] = React.useState(false);
   // passed in confirm delete dialog
   const [alertIDtoDelete, setAlertIDtoDelete] = React.useState("");
-
   const [anchorElArray, setAnchorElArray] = React.useState(new Array(rows?.length).fill(null));
+  const [showEditForm, setShowEditForm] = React.useState(false);
+  const [editAlertData, setEditAlertData] = React.useState();
 
   React.useEffect(()=>{
     console.log('alertss', props.alerts)
@@ -87,6 +79,11 @@ export default function DashboardAlertsTable(props) {
     setAnchorElArray(newAnchorElArray);
   };
 
+  const handleEditAlert = (alertData) => {
+    console.log(alertData)
+    setEditAlertData(alertData);
+    setShowEditForm(true);
+  }
 
   const handleDeleteAlert = (alertID) => {
     setAlertIDtoDelete(alertID);
@@ -102,6 +99,11 @@ export default function DashboardAlertsTable(props) {
 
   return (
     <TableContainer component={Paper}>
+      {
+        showEditForm &&
+        <EditAlert alertData={editAlertData} onClose={()=> setShowEditForm(false)}/>
+      }
+
       <ConfirmDelete 
         open={confirmDialog} 
         closeDialog={()=>{setAlertIDtoDelete(""); setConfirmDialog(false)}} 
@@ -158,7 +160,7 @@ export default function DashboardAlertsTable(props) {
 
               <StyledTableCell align="left">
                 <span className="font-semibold">
-                  {row.multiPair.join(', ')}  
+                  {row.pair.join(', ')}  
                 </span>
               </StyledTableCell>
 
@@ -210,22 +212,40 @@ export default function DashboardAlertsTable(props) {
                       MenuListProps={{
                         "aria-labelledby": `basic-button-${index}`,
                       }}
+                   
                       sx={{ boxShadow: 0 }}
                     >
-                      <MenuItem onClick={() => {}}>
-                        <div className="flex justify-between w-full">
-                          Edit <EditIcon />
-                        </div>
+                      <MenuItem                        
+                        onClick={() => {
+                          handleEditAlert(row)
+                          handleClose(index); 
+                        }}
+                        sx={{
+                          display:"flex",
+                          gap:"8px",
+                          fontSize: "0.95rem",
+                          fontWeight: 500,
+                          color: "rgba(10,10,10,0.7)"
+                        }}
+                        >
+                        <EditIcon fontSize="1rem" />
+                          Edit 
                       </MenuItem>
                       <MenuItem 
                         onClick={() => {
                           handleDeleteAlert(row._id)
                           handleClose(index); 
                         }}
+                        sx={{
+                          display:"flex",
+                          gap:"8px",
+                          fontSize: "0.95rem",
+                          fontWeight: 500,
+                          color: "#f44336"
+                        }}
                       >
-                        <div className="flex justify-between w-full">
-                          Delete <DeleteIcon />
-                        </div>
+                          <DeleteIcon fontSize="1rem" />
+                          Delete 
                       </MenuItem>
                     </Menu>
                   </div>

@@ -200,7 +200,7 @@ const IndicatorForm: any = ({
                 value={
                   indicator.editState
                     ? editData.interval
-                    : indicator.inputParams.interval || ""
+                    : indicator.inputParams?.interval || ""
                 }
                 onChange={
                   indicator.editState
@@ -222,7 +222,7 @@ const IndicatorForm: any = ({
                 value={
                   indicator.editState
                     ? editData.backtrack
-                    : indicator.inputParams.backtrack || ""
+                    : indicator.inputParams?.backtrack || ""
                 }
                 onChange={
                   indicator.editState

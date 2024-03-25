@@ -60,7 +60,7 @@ export default function ConfirmDelete(props) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Confirm Delete"}</DialogTitle>
+        <DialogTitle sx={{fontWeight: "bold"}}>{"Confirm Delete"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             Are you sure you want to delete the alert?

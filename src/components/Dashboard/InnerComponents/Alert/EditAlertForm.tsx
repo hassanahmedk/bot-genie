@@ -1,5 +1,5 @@
 'use client'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,8 +11,32 @@ import IndicatorForm from "./IndicatorForm";
 import ConditionForm from "./ConditionForm";
 import { nullCheck } from "@/utils";
 
-export default function AddAlertForm(props: any) {
+export default function EditAlertForm(props: any) {
   const [loading, setLoading] = useState(false);
+
+  useEffect(()=>{
+    if(props.alertData){
+      setFormData(props.alertData);
+    }
+
+  }, [props.alertData])
+
+  const [form, setForm] = useState('main');
+  const [formData, setFormData] = useState({
+    alertName: '',
+    exchange: '',
+    multiPairCheck: false,
+    pair: [],
+    trigger: 'only_once',
+    neverExpires: false,
+    expiration: null,
+    emailNotification: false,
+    telegramNotification: false,
+    indicators: [],
+    condition: []
+  });
+  const [formError, setFormError] = useState('');
+
 
   const handleAlertAddAPI:any = async () => {
     
@@ -51,24 +75,7 @@ export default function AddAlertForm(props: any) {
       console.log(error);
       setLoading(false);
     }
-
   };
-
-  const [form, setForm] = useState('main');
-  const [formData, setFormData] = useState({
-    alertName: '',
-    exchange: '',
-    multiPairCheck: false,
-    pair: [],
-    trigger: 'only_once',
-    neverExpires: false,
-    expiration: null,
-    emailNotification: false,
-    telegramNotification: false,
-    indicators: [],
-    condition: []
-  });
-  const [formError, setFormError] = useState('');
 
   const handleChange = (key: string, value: string | boolean | string[]) => {
     setFormError("");
@@ -137,7 +144,7 @@ export default function AddAlertForm(props: any) {
   return (
     <Dialog open={true} fullWidth PaperProps={{style:{height: '90vh', minWidth: '40vw'}}}>
       <DialogTitle>
-        <h2 className="font-semibold text-lg">Add Alert</h2>
+        <h2 className="font-semibold text-lg">Edit Alert</h2>
       </DialogTitle>
         <DialogContentText sx={{ marginBottom: "12px", marginLeft:"25px" }}>
           Alerts notify you instantly when your conditions are met.
@@ -208,7 +215,7 @@ export default function AddAlertForm(props: any) {
               size="sm"
             />
             <Button
-              title={loading ? "...Saving" : "Add Alert"}
+              title={loading ? "...Saving" : "Edit Alert"}
               type="primary"
               onClick={handleAlertAddAPI}
               size="sm"
