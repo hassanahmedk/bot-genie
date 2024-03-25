@@ -18,10 +18,36 @@ function AlertForm({
 :any) {
 
   const [webhooks, setWebhooks] = useState<any>([]);
+  const [symbolsLoading, setSymbolsLoading] = useState<boolean>(false);
+  const [symbols, setSymbols] = useState<[string]>(['Please select exchange to load symbols']);
 
   useEffect(() => {
     setWebhooks(webhooksFromProps)
   }, [webhooksFromProps])
+
+  async function handleExchangeChange(e: any) {
+    setSymbolsLoading(true);
+    let exchange = e.target.value;
+    handleChange('exchange', exchange as string);
+
+    try {
+      const response = await fetch('/api/dashboard/alerts/get-symbols', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'exchange': exchange
+        },
+      });
+      const data = await response.json();
+      console.log("symbols", symbols)
+      setSymbols(data.data);
+    } catch (error) {
+      console.log(error);
+      setSymbols(["An error occured, please try reloading."]);
+    }
+    setSymbolsLoading(false);
+
+  }
 
   return (
     <div className="flex flex-col gap-2">
@@ -47,18 +73,18 @@ function AlertForm({
           label="Condition"
           variant="outlined"
           value={formData.exchange}
-          onChange={(e) => handleChange('exchange', e.target.value as string)}
+          onChange={handleExchangeChange}
         >
-          <MenuItem value="US_Stock">US Stocks</MenuItem>
-          <MenuItem value="Binance">Binance</MenuItem>
-          <MenuItem value="Binance_Futures">Binance Futures</MenuItem>
-          <MenuItem value="Bitstamp">Bitstamp</MenuItem>
-          <MenuItem value="WhiteBIT">WhiteBIT</MenuItem>
-          <MenuItem value="ByBit">ByBit</MenuItem>
-          <MenuItem value="Gate.io">Gate.io</MenuItem>
-          <MenuItem value="Coinbase">Coinbase</MenuItem>
-          <MenuItem value="Binance_US">Binance US</MenuItem>
-          <MenuItem value="Kraken">Kraken</MenuItem>
+          <MenuItem value="stocks">US Stocks</MenuItem>
+          <MenuItem value="binance">Binance</MenuItem>
+          <MenuItem value="binancefutures">Binance Futures</MenuItem>
+          <MenuItem value="bitstamp">Bitstamp</MenuItem>
+          <MenuItem value="whitebit">WhiteBIT</MenuItem>
+          <MenuItem value="bybit">ByBit</MenuItem>
+          <MenuItem value="gateio">Gate.io</MenuItem>
+          <MenuItem value="coinbase">Coinbase</MenuItem>
+          <MenuItem value="binanceus">Binance US</MenuItem>
+          <MenuItem value="kraken">Kraken</MenuItem>
 
         </Select>
       </FormControl>
@@ -74,11 +100,12 @@ function AlertForm({
             multiple={formData.multiPairCheck}
             disablePortal
             id="combo-box-demo"
-            options={['BTC/USDT', 'ETH/USDT']}
+            options={symbols}
             value={formData.pair}
             onChange={(_, newValue) => handleChange('pair', newValue as any)}
             sx={{ width: 420, marginLeft: 4 }}
-            renderInput={(params) => <TextField {...params} label={`Symbol(s)`} />}
+            disabled={symbolsLoading}
+            renderInput={(params) => <TextField {...params} label={symbolsLoading ? "Loading symbols..." : `Symbol(s)`} />}
           />
         </div>
       </FormControl>
@@ -105,8 +132,8 @@ function AlertForm({
       
       <FormControl fullWidth>
         <DateTimePicker 
-          value={formData.neverExpires ? null : formData.date} 
-          onChange={(newValue:any) => handleChange('date', newValue)} 
+          value={formData.expiration} 
+          onChange={(newValue:any) => handleChange('expiration', newValue)} 
           disabled={formData.neverExpires}
           />
       </FormControl>
@@ -119,7 +146,7 @@ function AlertForm({
             onChange={(e) => {
               handleChange('neverExpires', e.target.checked)
               // to bypass the null value check
-              handleChange('date', 1)
+              handleChange('expiration', new Date(Date.now() + 86400000))
             }}
           />
           Never Expires
@@ -183,8 +210,8 @@ function AlertForm({
       <FormControl fullWidth>
         <div className="flex items-center text-sm opacity-90">
           <Checkbox
-            checked={formData.receiveEmailNotification}
-            onChange={(e) => handleChange('receiveEmailNotification', e.target.checked)}
+            checked={formData.emailNotification}
+            onChange={(e) => handleChange('emailNotification', e.target.checked)}
           />
           Receive Email Notification upon trigger at{' '}
           <span className="font-semibold text-primary-800">lorem@ipsum.com</span>
@@ -195,8 +222,8 @@ function AlertForm({
       <FormControl fullWidth>
         <div className="flex items-center text-sm opacity-90">
           <Checkbox
-            checked={formData.receiveTelegramNotification}
-            onChange={(e) => handleChange('receiveTelegramNotification', e.target.checked)}
+            checked={formData.telegramNotification}
+            onChange={(e) => handleChange('telegramNotification', e.target.checked)}
           />
           Receive Telegram Notification upon trigger at{' '}
           <span className="font-semibold text-primary-800">@loremipsum</span>
